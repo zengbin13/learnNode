@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>石头✊ 剪刀✌ 布✋</title>
+    <style>
+      #output {
+        height: 300px;
+        overflow: auto;
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>node.js</h1>
+    <div id="output"></div>
+    <button id="rock">rock</button>
+    <button id="scissors">scissors</button>
+    <button id="paper">paper</button>
+  </body>
+  <script>
+    let output = document.querySelector('#output');
+    let buttons = document.querySelectorAll('button');
+    Array.prototype.forEach.call(buttons, button => {
+      button.addEventListener('click', () => {
+        fetch(`http://${location.host}/game?action=${button.innerText}`)
+          .then(res => {
+            // console.log(res);
+            return res.text();
+          })
+          .then(text => {
+            // console.log(output);
+            output.innerHTML += `${text}<br />`;
+          });
+      });
+    });
+  </script>
+</html>
